@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Form</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Create category</h2>
+    <form action="{% url 'category-create' %}" method="POST" class="form-horizontal">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label" for="id_name">Category Name</label>
+            <input type="text" class="form-control" id="id_name" name="name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="id_parent_category">Parent Category</label>
+            <select class="form-control" id="id_parent_category" name="parent_category">
+                <option value="" selected>None</option>
+                {% for category in categories %}
+                    {% if not category.parent_category %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary waves-effect waves-light" id="btn-submit">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

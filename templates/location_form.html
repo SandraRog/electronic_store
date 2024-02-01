@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Form</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Create Location</h2>
+    <form action="{% url 'locations-create' %}" method="POST" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="id_room">Location Room</label>
+                    <div class="col-sm-8">
+                        {{ form.room }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="id_bookcase">Location Bookcase</label>
+                    <div class="col-sm-8">
+                        {{ form.bookcase }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="id_shelf">Location Shelf</label>
+                    <div class="col-sm-8">
+                        {{ form.shelf }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="id_cupboard">Location Cupboard</label>
+                    <div class="col-sm-8">
+                        {{ form.cupboard }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="id_column">Location Column</label>
+                    <div class="col-sm-8">
+                        {{ form.column }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="id_row">Location Row</label>
+                    <div class="col-sm-8">
+                        {{ form.row }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary waves-effect waves-light" id="btn-submit">Save</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

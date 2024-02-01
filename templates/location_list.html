@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5 mb-3">
+    <div class="row">
+        {% for location in locations %}
+            <div class="card shadow" style="width: 20rem; height: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ location.room }} <br>
+                        <small>
+                            {{ location.bookcase }}<br>
+                            {{ location.shelf }}<br>
+                            {{ location.cupboard }}<br>
+                            {{ location.column }}<br>
+                            {{ location.row }}
+                        </small>
+                    </h5>
+                   <p>
+                    <a href="/locations/{{ location.id }}/delete/" class="btn btn-danger
+                                            mx-4">Delete</a>
+                    <a href="/locations/{{ location.id }}/update/" class="btn btn-primary mx-4">Update</a></p>
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+<a href="{% url 'locations-create' %}" class="btn btn-primary mx-4">Create next</a>
+<a href="{% url 'landing-page' %}" class="btn btn-primary mx-4">Back</a>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
