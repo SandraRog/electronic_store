@@ -98,26 +98,6 @@ class CategoryUpdateView(View):
             return redirect('category-list')
         return render(request, 'category_update.html', {'form': form})
 
-# class CategoryDeleteView(View):
-#     def get(self, request, pk):
-#         category = get_object_or_404(Category, pk=pk)
-#         return render(request, 'category_confirm_delete.html', {'category': category})
-#
-#     def post(self, request, pk):
-#         category = get_object_or_404(Category, pk=pk)
-#         answer = request.POST.get('answer')
-#         if answer == 'Yes':
-#             try:
-#                 category.delete()
-#                 messages.success(request, 'Kategoria została pomyślnie usunięta.')
-#             except ProtectedError:
-#                 messages.error(request, 'Nie można usunąć kategorii z przypisanymi częściami lub podkategoriami.')
-#             except ValidationError as e:
-#                 messages.error(request, str(e))
-#             return redirect('category-list')  # Przekierowanie po przekazaniu komunikatów
-#         else:
-#             messages.error(request, 'Operacja usuwania została anulowana.')
-#             return redirect('category-list')
 class CategoryDeleteView(View):
     def get(self, request, pk):
         category = get_object_or_404(Category, pk=pk)
@@ -187,19 +167,6 @@ class LocationUpdateView(View):
         return render(request, 'location_update.html', {'form': form})
 
 
-# class LocationDeleteView(View):
-#     def get(self, request, pk):
-#         location = get_object_or_404(Location, pk=pk)
-#         return render(request, 'location_confirm_delete.html', {'location': location})
-#
-#     def post(self, request, pk):
-#         location = get_object_or_404(Location, pk=pk)
-#         answer = request.POST.get('answer')
-#         if answer == 'Yes':
-#             location.delete()
-#             return redirect('locations-list')
-#         else:
-#             return redirect('locations-list')
 class LocationDeleteView(View):
     def get(self, request, pk):
         location = get_object_or_404(Location, pk=pk)
