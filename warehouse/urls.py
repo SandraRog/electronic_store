@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from store import views
 from store.views import PartListView, PartCreateView, PartUpdateView, PartDeleteView, CategoryListView, \
     CategoryCreateView, CategoryUpdateView, CategoryDeleteView, CategoryDetailView, LocationCreateView, \
     LocationListView, LocationUpdateView, LocationDeleteView, LandingPageView
@@ -41,4 +42,8 @@ urlpatterns = [
     path('locations/<int:pk>/update/', LocationUpdateView.as_view(), name='locations-update'),
     path('locations/<int:pk>/delete/', LocationDeleteView.as_view(), name='locations-delete'),
     path('locations/<int:pk>/', CategoryDetailView.as_view(), name='locations-detail'),
+    #api
+    path('api/categories/', views.CategoryList.as_view()),
+    path('api/locations/', views.LocationList.as_view()),
+    path('api/parts/', views.PartList.as_view()),
 ]

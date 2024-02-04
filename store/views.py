@@ -5,6 +5,8 @@ from django.views import View
 from store.forms import CategoryForm, PartForm, LocationForm
 from store.models import Part, Category, Location
 from django.contrib import messages
+from rest_framework import generics
+from .serializers import CategorySerializer, LocationSerializer, PartSerializer
 
 
 class LandingPageView(View):
@@ -98,6 +100,7 @@ class CategoryUpdateView(View):
             return redirect('category-list')
         return render(request, 'category_update.html', {'form': form})
 
+
 class CategoryDeleteView(View):
     def get(self, request, pk):
         category = get_object_or_404(Category, pk=pk)
@@ -118,6 +121,8 @@ class CategoryDeleteView(View):
         else:
             messages.error(request, 'Operacja usuwania została anulowana.')
         return render(request, 'category_confirm_delete.html', {'category': category})
+
+
 class CategoryListView(View):
     def get(self, request):
         categories = Category.objects.all()
@@ -186,3 +191,17 @@ class LocationDeleteView(View):
         else:
             messages.error(request, 'Operacja usuwania została anulowana.')
         return render(request, 'location_confirm_delete.html', {'location': location})
+
+#API
+
+class CategoryList(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class LocationList(generics.ListAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+class PartList(generics.ListAPIView):
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
