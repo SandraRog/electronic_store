@@ -1,84 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Form</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Create part</h2>
+        <form action="{% url 'part-create' %}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="id_name">Part Name</label>
+                        <div class="col-sm-8">
+                            {{ form.name }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="id_serial_number">Serial Number</label>
+                        <div class="col-sm-8">
+                            {{ form.serial_number }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="id_description">Description</label>
+                        <div class="col-sm-8">
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="id_quantity">Quantity</label>
+                        <div class="col-sm-8">
+                            {{ form.quantity }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="id_category">Category</label>
+                        <div class="col-sm-8">
+                            {{ form.category }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="id_price">Price</label>
+                        <div class="col-sm-8">
+                            {{ form.price }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="id_location">Location</label>
+                        <select class="form-control" id="id_location" name="location">
 
-<div class="container">
-    <h2 class="text-center">Create part</h2>
-    <form action="{% url 'part-create' %}" method="POST" class="form-horizontal">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="id_name">Part Name</label>
-                    <div class="col-sm-8">
-                        {{ form.name }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="id_serial_number">Serial Number</label>
-                    <div class="col-sm-8">
-                        {{ form.serial_number }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="id_description">Description</label>
-                    <div class="col-sm-8">
-                        {{ form.description }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="id_quantity">Quantity</label>
-                    <div class="col-sm-8">
-                        {{ form.quantity }}
+                            {% for location in locations %}
+                                <option value="{{ location.id }}">
+                                    {{ location.room }}, {{ location.bookcase }}, {{ location.shelf }},
+                                    {{ location.cupboard }}, {{ location.columns }}, {{ location.row }}
+                                </option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="id_category">Category</label>
-                    <div class="col-sm-8">
-                        {{ form.category }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="id_price">Price</label>
-                    <div class="col-sm-8">
-                        {{ form.price }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {#                    <label class="control-label col-sm-4" for="id_location">Location</label>#}
-                    {#                    <div class="col-sm-8">#}
-                    {#                        {{ form.location }}#}
-                    <label class="control-label" for="id_location">Location</label>
-                    <select class="form-control" id="id_location" name="location">
-
-                        {% for location in locations %}
-                            <option value="{{ location.id }}">
-                                {{ location.room }}, {{ location.bookcase }}, {{ location.shelf }},
-                                {{ location.cupboard }}, {{ location.columns }}, {{ location.row }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
+            <div class="text-center">
+                <button class="btn btn-primary waves-effect waves-light" id="btn-submit">Save</button>
             </div>
-        </div>
-</div>
-<div class="text-center">
-    <button class="btn btn-primary waves-effect waves-light" id="btn-submit">Save</button>
-</div>
-</form>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+        </form>
+    </div>
+{% endblock %}

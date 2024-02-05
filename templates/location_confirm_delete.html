@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Form</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<p> Are you shure you want to delete?</p>
+{% extends 'base.html' %}
+{% block content %}
+    <p> Are you shure you want to delete?</p>
     <form method="post" class="float-left">
         {% csrf_token %}
         <input type="submit" class="btn btn-primary" value="Yes" name="answer">
         <input type="submit" class="btn btn-primary" value="No" name="answer">
     </form>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
-
-</body>
-</html>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
