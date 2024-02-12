@@ -20,7 +20,7 @@ from django.urls import path
 from store import views
 from store.views import PartListView, PartCreateView, PartUpdateView, PartDeleteView, CategoryListView, \
     CategoryCreateView, CategoryUpdateView, CategoryDeleteView, CategoryDetailView, LocationCreateView, \
-    LocationListView, LocationUpdateView, LocationDeleteView, LandingPageView
+    LocationListView, LocationUpdateView, LocationDeleteView, LandingPageView, LocationDetailView, PartDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('parts/create/', PartCreateView.as_view(), name='part-create'),
     path('parts/<int:pk>/update/', PartUpdateView.as_view(), name='part-update'),
     path('parts/<int:pk>/delete/', PartDeleteView.as_view(), name='part-delete'),
+    path('parts/<int:pk>/', PartDetailView.as_view(), name='part-detail'),
     #categories
     path('categories/', CategoryListView.as_view(), name='category-list'),
     path('categories/create/', CategoryCreateView.as_view(), name='category-create'),
@@ -41,9 +42,19 @@ urlpatterns = [
     path('locations/create/', LocationCreateView.as_view(), name='locations-create'),
     path('locations/<int:pk>/update/', LocationUpdateView.as_view(), name='locations-update'),
     path('locations/<int:pk>/delete/', LocationDeleteView.as_view(), name='locations-delete'),
-    path('locations/<int:pk>/', CategoryDetailView.as_view(), name='locations-detail'),
-    #api
+    path('locations/<int:pk>/', LocationDetailView.as_view(), name='locations-detail'),
+    #api list
     path('api/categories/', views.CategoryList.as_view()),
     path('api/locations/', views.LocationList.as_view()),
     path('api/parts/', views.PartList.as_view()),
+    #api details
+    path('api/parts/<int:pk>/', views.PartDetail.as_view()),
+    path('api/categories/<int:pk>/', views.CategoryDetail.as_view()),
+    path('api/locations/<int:pk>/', views.LocationDetail.as_view()),
+    #api delete
+    path('api/parts/<int:pk>/delete/', views.PartDelete.as_view()),
+    path('api/categories/<int:pk>/delete/', views.CategoryDelete.as_view()),
+    path('api/locations/<int:pk>/delete/', views.LocationyDelete.as_view()),
+    #api post
+
 ]

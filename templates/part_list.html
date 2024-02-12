@@ -1,35 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mt-5 mb-3">
-        <div class="row">
-            {% for part in parts %}
-                <div class="col-lg-4 my-4">
-                    <div class="card shadow" style="width: 20rem; height: 25rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Part name: {{ part.name }} <br>
-                                <small>Serial number: {{ part.serial_number }}<br>
-                                    Description: {{ part.description }} <br>
-                                    Category: {{ part.category }} <br>
-                                    Quantity: {{ part.quantity }} <br>
-                                    Price: {{ part.price }} <br>
-                                    Location room: {{ part.location.room }}<br>
-                                    <ul>
-                                        Bookcase: {{ part.location.bookcase }}<br>
-                                        Shelf: {{ part.location.shelf }}<br>
-                                        Cupboard: {{ part.location.cupboard }}<br>
-                                        Column: {{ part.location.column }}<br>
-                                        Row: {{ part.location.row }}
-                                    </ul>
-                                </small>
-                            </h5>
-                            <a href="/parts/{{ part.id }}/delete/" class="btn btn-danger mx-4">Delete</a>
-                            <a href="/parts/{{ part.id }}/update/" class="btn btn-primary mx-4">Update</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+        <div class="container mt-5 mb-3">
+        <h1>Parts list:</h1>
+        {% for part in parts %}
+            <ul>View details
+                <a href="{% url 'part-detail' part.id %}" class="btn btn-primary mx-4">{{ part.name }} </a>
+            </ul>
+        {% endfor %}<br>
         </div>
-    </div>
-    <a href="{% url 'part-create' %}" class="btn btn-primary mx-4">Create next</a>
+    <a href="{% url 'category-create' %}" class="btn btn-primary mx-4">Create next</a>
     <a href="{% url 'landing-page' %}" class="btn btn-primary mx-4">Back</a>
 {% endblock %}

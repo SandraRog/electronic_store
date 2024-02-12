@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5 mb-3">
+        <div class="row">
+            {% for location in locations %}
+                <div class="card shadow" style="width: 20rem; height: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ location.room }} <br>
+                            <small>
+                                <b>Bookcase:</b> {{ location.bookcase }}<br>
+                                <b>Shelf:</b> {{ location.shelf }}<br>
+                                <b>Cupboard:</b> {{ location.cupboard }}<br>
+                                <b>Column:</b> {{ location.column }}<br>
+                                <b>Row:</b> {{ location.row }}
+                            </small>
+                        </h5>
+                        <p>
+                            <a href="/locations/{{ location.id }}/delete/" class="btn btn-danger
+                                            mx-4">Delete</a>
+                            <a href="/locations/{{ location.id }}/update/" class="btn btn-primary mx-4">Update</a></p>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{% url 'category-create' %}" class="btn btn-primary mx-4">Create next</a>
+    <a href="{% url 'locations-list' %}" class="btn btn-primary mx-4">Back</a>
+{% endblock %}

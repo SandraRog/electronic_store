@@ -2,10 +2,14 @@ from django.core.exceptions import ValidationError
 from django.db.models import ProtectedError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from rest_framework.generics import RetrieveAPIView, DestroyAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from store.forms import CategoryForm, PartForm, LocationForm
 from store.models import Part, Category, Location
 from django.contrib import messages
-from rest_framework import generics
+from rest_framework import generics, status
 from .serializers import CategorySerializer, LocationSerializer, PartSerializer
 
 
@@ -20,6 +24,11 @@ class PartListView(View):
         parts = Part.objects.all()
         locations = Location.objects.all()
         return render(request, 'part_list.html', {'parts': parts, 'locations': locations})
+
+class PartDetailView(View):
+    def get(self, request, pk):
+        part_detail = Part.objects.filter(pk=pk)
+        return render(request, 'part_detail.html', {'parts': part_detail})
 
 
 class PartCreateView(View):
@@ -128,11 +137,11 @@ class CategoryListView(View):
         categories = Category.objects.all()
         return render(request, 'category_list.html', {'categories': categories})
 
-
 class CategoryDetailView(View):
     def get(self, request, pk):
-        category = get_object_or_404(Category, pk=pk)
-        return render(request, 'category_detail.html', {'category': category})
+        category_detail = Category.objects.filter(pk=pk)
+        return render(request, 'category_detail.html', {'categories': category_detail})
+
 
 
 # CRUD location
@@ -141,6 +150,10 @@ class LocationListView(View):
         locations = Location.objects.all()
         return render(request, 'location_list.html', {'locations': locations})
 
+class LocationDetailView(View):
+    def get(self, request, pk):
+        location_detail = Location.objects.filter(pk=pk)
+        return render(request, 'location_detail.html', {'locations': location_detail})
 
 class LocationCreateView(View):
     def get(self, request):
@@ -192,7 +205,7 @@ class LocationDeleteView(View):
             messages.error(request, 'Operacja usuwania została anulowana.')
         return render(request, 'location_confirm_delete.html', {'location': location})
 
-#API
+#API GET list
 
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
@@ -205,3 +218,61 @@ class LocationList(generics.ListAPIView):
 class PartList(generics.ListAPIView):
     queryset = Part.objects.all()
     serializer_class = PartSerializer
+
+#API GET details
+class PartDetail(RetrieveAPIView):
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
+    lookup_field = 'pk'
+
+class CategoryDetail(RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    lookup_field = 'pk'
+
+class LocationDetail(RetrieveAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+    lookup_field = 'pk'
+
+#API delete
+class PartDelete(APIView):
+    def delete(self, request, pk):
+        try:
+            part = Part.objects.get(pk=pk)
+        except Part.DoesNotExist:
+            return Response({"error": "Part not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        part.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class CategoryDelete(DestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def perform_destroy(self, instance):
+        self.check_category_constraints(instance)
+        instance.delete()
+
+    def check_category_constraints(self, category):
+        if category.part_set.exists():
+            raise ValidationError("Nie można usunąć kategorii z przypisanymi częściami.")
+
+        if category.parent_category and Category.objects.filter(parent_category=category.parent_category).exclude(pk=category.pk).exists():
+            raise ValidationError("Nie można usunąć kategorii rodzica, która ma inne podkategorie.")
+
+class LocationyDelete(DestroyAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+    def perform_destroy(self, instance):
+        self.check_category_constraints(instance)
+        instance.delete()
+
+    def check_category_constraints(self, location):
+        if location.part_set.exists():
+            raise ValidationError("Nie można usunąć lokalizacji z przypisanymi częściami.")
+
+        # if location.parent_category and Location.objects.filter(parent_category=location.parent_category).exclude(
+        #         pk=location.pk).exists():
+        #     raise ValidationError("Nie można usunąć kategorii rodzica, która ma inne podkategorie.")
