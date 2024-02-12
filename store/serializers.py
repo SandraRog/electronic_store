@@ -17,4 +17,6 @@ class LocationSerializer(serializers.ModelSerializer):
 class PartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Part
-        fields = ['id', 'serial_number', 'name', 'description', 'category_id', 'quantity', 'price', 'location_id']
+        fields = ['id', 'serial_number', 'name', 'description', 'category', 'quantity', 'price', 'location']
+
+

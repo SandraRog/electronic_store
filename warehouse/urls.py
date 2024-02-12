@@ -56,5 +56,8 @@ urlpatterns = [
     path('api/categories/<int:pk>/delete/', views.CategoryDelete.as_view()),
     path('api/locations/<int:pk>/delete/', views.LocationyDelete.as_view()),
     #api post
+    path('api/categories/create/', views.CategoryCreate.as_view()),
+    path('api/locations/create/', views.LocationCreate.as_view()),
+    path('api/parts/create/', views.PartCreate.as_view()),
 
 ]

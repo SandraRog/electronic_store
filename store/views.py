@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db.models import ProtectedError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from rest_framework.generics import RetrieveAPIView, DestroyAPIView
+from rest_framework.generics import RetrieveAPIView, DestroyAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -273,6 +273,14 @@ class LocationyDelete(DestroyAPIView):
         if location.part_set.exists():
             raise ValidationError("Nie można usunąć lokalizacji z przypisanymi częściami.")
 
-        # if location.parent_category and Location.objects.filter(parent_category=location.parent_category).exclude(
-        #         pk=location.pk).exists():
-        #     raise ValidationError("Nie można usunąć kategorii rodzica, która ma inne podkategorie.")
+class CategoryCreate(generics.CreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class LocationCreate(generics.CreateAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+class PartCreate(generics.CreateAPIView):
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
