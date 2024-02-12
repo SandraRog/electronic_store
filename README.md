@@ -63,12 +63,11 @@ DELETE /locations/{id}/: Delete a specific part.<br>
 **Docker**<br>
 This application is containerized using Docker. To run the application in a Docker container, follow these steps:<br>
 
-Build the Docker image:<br>
-
-bash<br>
-Copy code<br>
-docker build -t parts-warehouse-api .<br>
-Run the Docker container:<br>
+1. Build the Docker image:<br>
+```bash
+Copy code
+docker build -t parts-warehouse-api .```
+2. Run the Docker container:<br>
 bash<br>
 Copy code<br>
 docker run -p 8000:8000 parts-warehouse-api<br>
