@@ -11,33 +11,30 @@ __Requirements__<br>
 - djangorestframework<br>
   
 __Installation__<br>
-Clone this repository to your local machine:<br>
-
+1. Clone this repository to your local machine:<br>
 bash<br>
 Copy code<br>
 git clone <repository_url><br>
-Navigate to the project directory:<br>
+2. Navigate to the project directory:<br>
 bash<br>
 Copy code<br>
 cd parts-warehouse-api<br>
-Create a virtual environment:<br>
+3. Create a virtual environment:<br>
 bash<br>
 Copy code<br>
 python3 -m venv venv<br>
-Activate the virtual environment:<br>
+4. Activate the virtual environment:<br>
 bash<br>
 Copy code<br>
 source venv/bin/activate<br>
-Install dependencies:<br>
+5. Install dependencies:<br>
 bash<br>
 Copy code<br>
 pip install -r requirements.txt<br>
-Set up MongoDB:<br>
-
+6. Set up MongoDB:<br>
 Install MongoDB on your local machine or use a MongoDB instance provided by a service like MongoDB Atlas.
 Update the MongoDB connection settings in settings.py file to point to your MongoDB instance.<br>
-
-Run the API:<br>
+7. Run the API:<br>
 bash<br>
 Copy code<br>
 python manage.py runserver<br>
@@ -49,13 +46,13 @@ POST /parts/: Create a new part.<br>
 GET /parts/{id}/: Get a specific part.<br>
 PUT /parts/{id}/: Update a specific part.<br>
 DELETE /parts/{id}/: Delete a specific part.<br>
-GET /parts/search/?query={query}: Search for parts by name or description.<br>
+GET /parts/search/?query={query}: Search for parts by name or description.<br><br>
 __Categories__<br>
 GET /categories/: Get all categories.<br>
 POST /categories/: Create a new category.<br>
 GET /categories/{id}/: Get a specific category.<br>
 PUT /categories/{id}/: Update a specific category.<br>
-DELETE /categories/{id}/: Delete a specific category.<br>
+DELETE /categories/{id}/: Delete a specific category.<br><br>
 __Locations__<br>
 GET /locations/: Get all parts.<br>
 POST /locations/: Create a new part.<br>
