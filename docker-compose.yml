@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=dockerapp
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=coderslab
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code/
+    ports:
+      - "5432:5432"
+    depends_on:
+      - db
