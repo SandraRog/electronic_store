@@ -1,12 +1,11 @@
 **Parts Warehouse REST API**
-This is a simple REST API for managing parts in a warehouse, designed to be used in electronic repair workshops. The API is connected to a MongoDB database and provides CRUD functionality for managing parts and categories. Additionally, it includes an endpoint for searching parts.<br>
+This is a simple REST API for managing parts in a warehouse, designed to be used in electronic repair workshops. The API is connected to a PostgreSQL database and provides CRUD functionality for managing parts and categories. Additionally, it includes an endpoint for searching parts.<br>
 
 __Setup__<br>
 
 __Requirements__<br>
 - Python 3.x
 - Docker
-- pymongo 3.12.3
 - Django
 - djangorestframework<br>
   
@@ -41,10 +40,9 @@ Copy code<br>
 ```
 pip install -r requirements.txt
 ```
-6. Set up MongoDB:<br>
-Install MongoDB on your local machine or use a MongoDB instance provided by a service like MongoDB Atlas.
-Update the MongoDB connection settings in settings.py file to point to your MongoDB instance.<br>
-7. Run the API:<br>
+6. PostgreSQL Configuration:<br>
+Install PostgreSQL on your local machine or use a PostgreSQL instance provided by a cloud service.
+Update the PostgreSQL connection settings in the settings.py file to point to your PostgreSQL instance.<br>
 bash<br>
 Copy code<br>
 ```
